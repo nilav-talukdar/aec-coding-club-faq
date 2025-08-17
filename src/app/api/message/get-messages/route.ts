@@ -14,7 +14,7 @@ export async function GET() {
       );
     }
     await connectToDb();
-    const result = await Message.find({});
+    const result = await Message.find({}).sort({ createdAt: -1 });
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error(error);
