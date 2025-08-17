@@ -38,9 +38,9 @@ export default function AdminPage() {
       <ClearButton />
       <div className="my-6">
         <p className="text-2xl font-medium text-neutral-600">FAQs</p>
-        {query.error && (
+        {query.isError && (
           <div className="my-6">
-            <Error message="Some error occurred" />
+            <Error message="Failed to fetch messages" />
           </div>
         )}
         {query.isLoading ? (
