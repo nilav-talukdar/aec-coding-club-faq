@@ -1,5 +1,4 @@
 "use client";
-
 import Card from "@/components/shared/card";
 import ClearButton from "@/components/shared/clear";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -7,6 +6,7 @@ import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect } from "react";
 import Pusher from "pusher-js";
+import Error from "@/components/error/error";
 
 export default function AdminPage() {
   const queryClient = useQueryClient();
@@ -38,6 +38,11 @@ export default function AdminPage() {
       <ClearButton />
       <div className="my-6">
         <p className="text-2xl font-medium text-neutral-600">FAQs</p>
+        {query.error && (
+          <div className="my-6">
+            <Error message="Some error occurred" />
+          </div>
+        )}
         {query.isLoading ? (
           <div className="my-6">
             <Loader className="text-blue-500 animate-spin" size={24} />
