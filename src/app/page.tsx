@@ -27,7 +27,7 @@ export default function Home() {
       setMessage("");
       toast.success("Message sent successfully");
     },
-    onError: (error: any) => {
+    onError: (error) => {
       if (axios.isAxiosError(error) && error.response?.status === 429) {
         toast.error("Too many requests");
       } else {
