@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import QueryProvider from "@/components/ui/context/query-client";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -17,11 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${nunito.className} antialiased`}>
-        <main>{children}</main>
-        <Toaster />
-      </body>
-    </html>
+    <QueryProvider>
+      <html lang="en">
+        <body className={`${nunito.className} antialiased`}>
+          <main>{children}</main>
+          <Toaster />
+        </body>
+      </html>
+    </QueryProvider>
   );
 }
