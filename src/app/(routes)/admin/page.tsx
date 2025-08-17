@@ -19,7 +19,6 @@ export default function AdminPage() {
   });
 
   useEffect(() => {
-    // Only run on client
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
     });
@@ -42,6 +41,10 @@ export default function AdminPage() {
         {query.isLoading ? (
           <div className="my-6">
             <Loader className="text-blue-500 animate-spin" size={24} />
+          </div>
+        ) : Array.isArray(query.data) && query.data.length === 0 ? (
+          <div className="my-6 text-start text-neutral-500">
+            Oops, no messages are present at this moment
           </div>
         ) : (
           <div className="my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
