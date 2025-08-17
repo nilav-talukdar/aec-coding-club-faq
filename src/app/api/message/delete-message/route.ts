@@ -27,7 +27,7 @@ export async function DELETE(request: NextRequest) {
         { status: 400 }
       );
     }
-    await Message.findByIdAndDelete(parsedQuery.data);
+    await Message.findByIdAndDelete(parsedQuery.data.messageId);
     return NextResponse.json(
       { success: true, message: "message deleted successfully" },
       { status: 200 }

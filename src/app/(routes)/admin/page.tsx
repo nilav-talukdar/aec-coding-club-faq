@@ -28,6 +28,7 @@ export default function AdminPage() {
             {(query.data ?? []).map(
               (item: { _id: string; message: string }, index: number) => (
                 <Card
+                  messageId={item._id.toString()}
                   key={item._id}
                   message={item.message}
                   serial={index + 1}
