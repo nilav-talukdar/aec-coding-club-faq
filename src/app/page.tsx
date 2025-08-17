@@ -1,8 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowUp, Command } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { AuroraText } from "@/components/magicui/aurora-text";
+import { TextAnimate } from "@/components/magicui/text-animate";
+import { motion } from "motion/react";
 
 export default function Home() {
   return (
@@ -14,17 +18,21 @@ export default function Home() {
             height={72}
             width={72}
             alt="logo"
-            className="bg-white"
+            className="bg-white animate-in"
           />
           <h1 className="text-center text-3xl font-bold font-mono sm:text-5xl text-neutral-600">
-            Welcome to AEC Coding Club
+            Welcome to <AuroraText>AEC Coding Club</AuroraText>
           </h1>
-          <p className="text-xl sm:text-2xl my-6 font-mono text-neutral-500 font-medium">
+          <TextAnimate className="text-xl sm:text-2xl my-6 font-mono text-neutral-500 font-medium">
             Post your doubts and questions here
-          </p>
+          </TextAnimate>
         </div>
-        <div className="relative max-w-2xl mx-auto my-4">
-          {/* Gradient shadow */}
+        <motion.div
+          className="relative max-w-2xl mx-auto my-4"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <div
             className="absolute inset-0 z-0 rounded-2xl pointer-events-none"
             style={{
@@ -48,7 +56,7 @@ export default function Home() {
             <Command className="w-3 h-3 mr-1 font-extralight" />
             Enter to submit
           </div>
-        </div>
+        </motion.div>
       </div>
       <div
         className={cn(
