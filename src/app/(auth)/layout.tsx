@@ -12,7 +12,7 @@ export default async function Layout({
     redirect("/admin");
   }
   return (
-    <div className="max-w-md p-4 mx-auto my-24">
+    <div className="max-w-sm p-4 mx-auto my-24">
       <div className="flex flex-col justify-center items-center gap-2">
         <div className="flex justify-center items-center gap-4">
           <Button className="pointer-events-none" size="sm" variant="secondary">
