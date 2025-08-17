@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function Home() {
   const [message, setMessage] = useState<string>("");
@@ -50,7 +51,10 @@ export default function Home() {
 
   return (
     <section className="p-4 bg-white relative min-h-screen max-w-screen overflow-x-hidden">
-      <div className="max-w-4xl mx-auto my-24">
+      <Link href="/admin" className="relative z-10">
+        <Button>Admin</Button>
+      </Link>
+      <div className="max-w-4xl mx-auto my-16">
         <div className="mt-12 w-full flex flex-col justify-center items-center">
           <Image
             src="/cclogo.png"
