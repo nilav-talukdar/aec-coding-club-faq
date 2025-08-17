@@ -1,9 +1,9 @@
 "use client";
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { signIn } from "next-auth/react";
 import {
   Form,
   FormControl,
@@ -14,6 +14,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { Loader } from "lucide-react";
 
 const formSchema = z.object({
   username: z
@@ -27,6 +30,7 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,9 +39,29 @@ export default function Login() {
     },
   });
 
+  const mutation = useMutation({
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
+      const result = await signIn("credentials", {
+        redirect: false,
+        username: values.username,
+        password: values.password,
+      });
+      if (result?.ok) {
+        form.reset();
+        router.push("/admin");
+      }
+      if (result?.error) {
+        toast(result.error);
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+      toast("Failed to login");
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    toast("new toast");
+    mutation.mutate(values);
   };
 
   return (
@@ -78,8 +102,13 @@ export default function Login() {
             type="submit"
             variant="secondary"
             className="bg-blue-500 w-full"
+            disabled={mutation.isPending}
           >
-            Submit
+            {mutation?.isPending ? (
+              <Loader className="animate-spin" size={16} color="white" />
+            ) : (
+              "Submit"
+            )}
           </Button>
         </form>
       </Form>

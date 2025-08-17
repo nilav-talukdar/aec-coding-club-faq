@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
         ) {
           return { id: "admin", name: "Admin", email: "admin@example.com" };
         }
-        return null;
+        throw new Error("Invalid Credentials");
       },
     }),
   ],
