@@ -43,7 +43,7 @@ export default function AdminPage() {
             <Error message="Failed to fetch messages" />
           </div>
         )}
-        {query.isLoading ? (
+        {!query.isError && query.isLoading ? (
           <div className="my-6">
             <Loader className="text-blue-500 animate-spin" size={24} />
           </div>
