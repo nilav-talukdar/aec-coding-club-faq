@@ -5,7 +5,7 @@ import arcjet, { tokenBucket } from "@arcjet/next";
 import { z } from "zod";
 
 const schema = z.object({
-  message: z.string().min(2, { message: "message is too short" }),
+  message: z.string().min(1, { message: "message is too short" }),
 });
 
 const aj = arcjet({
