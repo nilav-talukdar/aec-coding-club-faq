@@ -23,7 +23,7 @@ export default function Home() {
           <h1 className="text-center text-3xl font-bold font-mono sm:text-5xl text-neutral-600">
             Welcome to <AuroraText>AEC Coding Club</AuroraText>
           </h1>
-          <TextAnimate className="text-xl sm:text-2xl my-6 font-mono text-neutral-500 font-medium">
+          <TextAnimate className="text-xl sm:text-2xl my-6 font-mono text-center text-neutral-500 font-medium">
             Post your doubts and questions here
           </TextAnimate>
         </div>
