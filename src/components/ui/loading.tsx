@@ -1,4 +1,4 @@
-export default function Loading() {
+export default function Spinner() {
   return (
     <div
       className="animate-spin inline-block size-12 border-4 border-current border-t-transparent text-blue-600 rounded-full"
