@@ -1,6 +1,6 @@
 "use client";
-import LogoutButton from "@/components/auth/logout-button";
 import Card from "@/components/shared/card";
+import ClearButton from "@/components/shared/clear";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader } from "lucide-react";
@@ -16,8 +16,7 @@ export default function AdminPage() {
 
   return (
     <section>
-      <h1>Admin</h1>
-      <LogoutButton />
+      <ClearButton />
       <div className="my-6">
         <p className="text-2xl font-medium text-neutral-600">FAQs</p>
         {query.isLoading ? (
