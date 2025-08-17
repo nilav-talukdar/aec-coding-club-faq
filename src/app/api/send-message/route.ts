@@ -3,6 +3,15 @@ import Message from "@/models/message.model";
 import { NextRequest, NextResponse } from "next/server";
 import arcjet, { tokenBucket } from "@arcjet/next";
 import { z } from "zod";
+import Pusher from "pusher";
+
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID!,
+  key: process.env.PUSHER_KEY!,
+  secret: process.env.PUSHER_SECRET!,
+  cluster: process.env.PUSHER_CLUSTER!,
+  useTLS: true,
+});
 
 const schema = z.object({
   message: z.string().min(1, { message: "message is too short" }),
@@ -47,6 +56,12 @@ export async function POST(request: NextRequest) {
     }
     await connectToDb();
     const result = await Message.create(parsedBody.data);
+
+    await pusher.trigger("messages", "new-message", {
+      _id: result._id.toString(),
+      message: result.message,
+    });
+
     return NextResponse.json(
       {
         success: true,

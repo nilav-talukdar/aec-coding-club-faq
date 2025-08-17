@@ -1,11 +1,15 @@
 "use client";
+
 import Card from "@/components/shared/card";
 import ClearButton from "@/components/shared/clear";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader } from "lucide-react";
+import { useEffect } from "react";
+import Pusher from "pusher-js";
 
 export default function AdminPage() {
+  const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: ["message"],
     queryFn: async () => {
@@ -13,6 +17,22 @@ export default function AdminPage() {
       return result.data;
     },
   });
+
+  useEffect(() => {
+    // Only run on client
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    });
+    const channel = pusher.subscribe("messages");
+    channel.bind("new-message", () => {
+      queryClient.invalidateQueries({ queryKey: ["message"] });
+    });
+    return () => {
+      channel.unbind_all();
+      channel.unsubscribe();
+      pusher.disconnect();
+    };
+  }, [queryClient]);
 
   return (
     <section>
